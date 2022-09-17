@@ -16,6 +16,9 @@ spec:
       containers:
         - name: store-service
           image: store-service
+          resources:
+            limits:
+              memory: "512Mi"
           ports:
             - containerPort: 8080
 ---

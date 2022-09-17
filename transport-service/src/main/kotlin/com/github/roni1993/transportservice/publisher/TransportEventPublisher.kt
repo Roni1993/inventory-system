@@ -2,13 +2,15 @@ package com.github.roni1993.transportservice.publisher
 
 import com.github.roni1993.transportservice.generator.TransportEventGenerator
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
 import org.springframework.jms.connection.CachingConnectionFactory
 import org.springframework.jms.core.JmsTemplate
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter
+import org.springframework.jms.support.converter.MessageConverter
+import org.springframework.jms.support.converter.MessageType
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
-import java.util.concurrent.TimeUnit
 import javax.annotation.PostConstruct
 
 
@@ -16,10 +18,11 @@ import javax.annotation.PostConstruct
 class TransportEventPublisher(
     val generator: TransportEventGenerator,
     val jmsTemplate: JmsTemplate,
-    @Value("event.queueName") val queueName: String
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
     var enabled = true
+    @Value("\${event.queueName}")
+    lateinit var queueName: String
 
     @PostConstruct
     private fun customizeJmsTemplate() {
@@ -33,7 +36,8 @@ class TransportEventPublisher(
         jmsTemplate.isPubSubDomain = false
     }
 
-    @Scheduled(fixedRate = 1000)
+
+    @Scheduled(fixedRate = 10000)
     @Throws(Exception::class)
     fun sendEvent() {
         if (enabled) {

@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  managedFields:
+  - apiVersion: networking.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:rules: {}
+    manager: steve.exe
+    operation: Update
+    time: "2022-09-17T12:01:43Z"
+  - apiVersion: networking.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:loadBalancer:
+          f:ingress: {}
+    manager: traefik
+    operation: Update
+    subresource: status
+    time: "2022-09-17T12:01:43Z"
+  name: inventory-service
+  namespace: default
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - backend:
+          service:
+            name: event-broker-pubsubplus-dev
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+      - backend:
+          service:
+            name: inventory-frontend
+            port:
+              number: 3000
+        path: /frontend
+        pathType: Prefix
+      - backend:
+          service:
+            name: store-service
+            port:
+              number: 8080
+        path: /api/store
+        pathType: Prefix
+      - backend:
+          service:
+            name: transport-service
+            port:
+              number: 8080
+        path: /api/transport
+        pathType: Prefix

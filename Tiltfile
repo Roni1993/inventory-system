@@ -1,25 +1,33 @@
 version_settings(constraint='>=0.22.2')
-load('ext://dotenv', 'dotenv')
-load('ext://namespace', 'namespace_inject')
-load('ext://restart_process', 'docker_build_with_restart')
 load('ext://helm_resource', 'helm_resource', 'helm_repo')
-
-allow_k8s_contexts('rancher-desktop')
-# default_registry("registry:5000")
+load('ext://helm_remote', 'helm_remote')
 
 # install solace in local cluster
-helm_repo('solacecharts', 'https://solaceproducts.github.io/pubsubplus-kubernetes-quickstart/helm-charts')
-helm_resource('event-broker', 'solacecharts/pubsubplus-dev')
+helm_remote(
+    chart='pubsubplus-dev',
+    release_name='event-broker',
+    repo_url='https://solaceproducts.github.io/pubsubplus-kubernetes-quickstart/helm-charts',
+    set=["solace.usernameAdminPassword=password"]
+)
 
 # install postgres in cluster
-helm_repo('bitnami', 'https://charts.bitnami.com/bitnami')
-helm_resource('inventory-db', 'bitnami/postgresql')
+helm_remote(
+    chart='postgresql',
+    release_name='store-db',
+    repo_url='https://charts.bitnami.com/bitnami',
+    set=[
+        "auth.username=store",
+        "auth.password=password",
+        "auth.database=store"
+    ]
+)
 
 # set-up k8s resources
 k8s_yaml([
     'infra/inventory-frontend.yaml',
     'infra/store-service.yaml',
     'infra/transport-service.yaml',
+    'infra/ingress.yaml',
 ])
 
 # set-up all docker builds

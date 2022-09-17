@@ -16,6 +16,9 @@ spec:
       containers:
         - name: inventory-frontend
           image: inventory-frontend
+          resources:
+            limits:
+              memory: "512Mi"
           ports:
             - containerPort: 3000
 ---
