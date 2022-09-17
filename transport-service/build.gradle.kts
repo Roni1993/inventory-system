@@ -1,7 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "2.6.11"
+//	id("org.springframework.boot") version "2.6.11"
+	id("org.springframework.boot") version "2.7.3"
 	id("io.spring.dependency-management") version "1.0.13.RELEASE"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
@@ -21,11 +22,12 @@ extra["springCloudVersion"] = "2021.0.4"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-quartz")
+	implementation("com.solace.spring.boot:solace-jms-spring-boot-starter")
+
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("com.solace.spring.cloud:spring-cloud-starter-stream-solace")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.cloud:spring-cloud-stream")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

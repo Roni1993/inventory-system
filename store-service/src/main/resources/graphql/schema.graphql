@@ -1,0 +1,56 @@
+scalar Date
+
+type Query {
+    transport(id: ID!): Transport
+    transports(page: Page, search: Search ): [Transport]
+    deliveries(from: Date, to: Date, page: Page, search: Search ): [Transport]
+}
+
+# TODO: define predicate in Graphql Schema
+# TODO: set-up Graphql lib
+# TODO: define read model
+# TODO: define event store model
+
+# optional
+# TODO: set-up solace connection
+# TODO: define flyway migrations
+
+# Tests
+# TODO: build repository tests
+# TODO: build graphql tests
+
+input Search {
+    filter: String
+}
+
+input Page {
+    page: Int,
+    size: Int
+}
+
+type Transport {
+    id: ID!
+    status: TransportStatus!
+    category: TransportCategory!
+    plannedDeliveryDate: Date!
+    actualDeliveryDate: Date
+    items: [Item]
+}
+
+type Item {
+    name: String!
+    quantity: Int!
+}
+
+enum TransportCategory {
+    TRUCK,
+    PARCEL,
+}
+
+enum TransportStatus {
+    PLANNED,
+    IN_PROGRESS,
+    DELIVERED,
+    UNKNOWN
+}
+

@@ -1,4 +1,4 @@
-package com.github.roni1993.transportservice.model
+package com.github.roni1993.store.model
 
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.github.roni1993.inventoryservice
+package com.github.roni1993.store
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
