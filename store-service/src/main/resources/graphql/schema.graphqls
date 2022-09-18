@@ -22,11 +22,6 @@ enum DeliveryProperties {
 
 enum Direction { ASC, DESC }
 
-# Tests
-# TODO: build repository tests
-# TODO: build graphql tests
-
-
 input PageInput {
     page: Int,
     size: Int,
