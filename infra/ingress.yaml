@@ -46,7 +46,7 @@ spec:
             name: store-service
             port:
               number: 8080
-        path: /api/store
+        path: /api
         pathType: Prefix
       - backend:
           service:
