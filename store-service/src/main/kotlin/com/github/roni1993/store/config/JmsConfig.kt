@@ -1,6 +1,6 @@
 package com.github.roni1993.store.config
 
-import com.github.roni1993.store.model.DeliveryEventDto
+import com.github.roni1993.store.model.event.DeliveryEventDto
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter
