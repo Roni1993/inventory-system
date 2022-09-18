@@ -1,6 +1,6 @@
 package com.github.roni1993.store.model.entity
 
-import com.github.roni1993.store.model.dto.ItemDto
+import com.github.roni1993.store.model.dto.Item
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import org.hibernate.Hibernate
 import org.hibernate.annotations.Type
@@ -18,7 +18,7 @@ data class DeliveryView(
     val actualDeliveryDate: Date?,
     val category: String,
     val status: String,
-    @Type(type = "jsonb") @Column(columnDefinition = "jsonb") val items: List<ItemDto>
+    @Type(type = "jsonb") @Column(columnDefinition = "jsonb") val items: List<Item>
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

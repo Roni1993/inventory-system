@@ -2,13 +2,13 @@ package com.github.roni1993.store.model.dto
 
 import java.time.OffsetDateTime
 
-data class DeliveryDto(
+data class Delivery(
     var id: String?,
     var plannedDeliveryDate: OffsetDateTime?,
     var actualDeliveryDate: OffsetDateTime?,
     var category: DeliveryCategory?,
     var status: DeliveryStatus?,
-    var items: List<ItemDto>?
+    var items: List<Item>?
 ) {
     constructor() : this(null, null, null, null, null, null)
 }

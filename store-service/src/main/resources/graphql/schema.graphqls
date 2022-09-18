@@ -2,24 +2,32 @@ scalar DateTime
 
 type Query {
     delivery(id: ID!): Delivery
-    deliveries(page: Page): DeliveryCollection!
-    deliveriesPlannedTomorrow(page: Page): DeliveryCollection!
-    deliveredBetween(from: DateTime!, to: DateTime!, page: Page): DeliveryCollection!
+    deliveries(page: PageInput): DeliveryCollection!
+    deliveriesPlannedTomorrow(page: PageInput): DeliveryCollection!
+    deliveredBetween(from: DateTime!, to: DateTime!, page: PageInput): DeliveryCollection!
 }
 
 input Sort {
-    field: String
-    order: OrderType
+    direction: Direction
+    property: DeliveryProperties
 }
 
-enum OrderType { ASC, DESC }
+enum DeliveryProperties {
+    deliveryId
+    status
+    category
+    plannedDeliveryDate
+    actualDeliveryDate
+}
+
+enum Direction { ASC, DESC }
 
 # Tests
 # TODO: build repository tests
 # TODO: build graphql tests
 
 
-input Page {
+input PageInput {
     page: Int,
     size: Int,
     sort: [Sort]
@@ -27,8 +35,6 @@ input Page {
 
 type DeliveryCollection  {
     content: [Delivery]
-    page: Int
-    offset: Int
     size: Int
     totalElements: Int
     totalPages: Int

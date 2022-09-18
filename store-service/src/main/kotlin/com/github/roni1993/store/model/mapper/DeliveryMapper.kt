@@ -1,7 +1,7 @@
 package com.github.roni1993.store.model.mapper
 
 import com.github.roni1993.store.model.dto.DeliveryCategory
-import com.github.roni1993.store.model.dto.DeliveryDto
+import com.github.roni1993.store.model.dto.Delivery
 import com.github.roni1993.store.model.dto.DeliveryStatus
 import com.github.roni1993.store.model.entity.DeliveryEvent
 import com.github.roni1993.store.model.entity.DeliveryView
@@ -18,7 +18,7 @@ abstract class DeliveryMapper {
     abstract fun toEntity(event: DeliveryEventDto): DeliveryEvent
     abstract fun toView(entity: DeliveryEvent): DeliveryView
     @Mapping(source = "deliveryId", target = "id")
-    abstract fun toDto(entity: DeliveryView): DeliveryDto
+    abstract fun toDto(entity: DeliveryView): Delivery
 
     fun toCategory(category: String): DeliveryCategory {
         return DeliveryCategory.values().find { enum -> enum.key == category  }!!
