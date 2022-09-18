@@ -1,0 +1,25 @@
+query deliveries($size: Int, $page: Int, $property: DeliveryProperties, $direction: Direction) {
+    deliveries(page: {
+        page: $page,
+        size: $size,
+        sort: [{
+            property: $property
+            direction: $direction
+        }]
+    }) {
+        content {
+            id
+            status
+            category
+            plannedDeliveryDate
+            actualDeliveryDate
+            items {
+                name
+                quantity
+            }
+        }
+        size
+        totalElements
+        totalPages
+    }
+}

@@ -1,0 +1,13 @@
+query delivery($id: ID!) {
+    delivery(id: $id) {
+        id
+        status
+        category
+        plannedDeliveryDate
+        actualDeliveryDate
+        items{
+            name
+            quantity
+        }
+    }
+}

@@ -30,7 +30,7 @@ abstract class DeliveryMapper {
         return DeliveryStatus.values().find { enum -> enum.key == status  }!!
     }
 
-    fun toOffsetDate(date: Date): OffsetDateTime {
-        return OffsetDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+    fun toOffsetDate(date: Date?): OffsetDateTime? {
+        return if (date!=null) OffsetDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()) else null
     }
 }

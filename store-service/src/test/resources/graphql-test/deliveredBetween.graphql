@@ -1,0 +1,17 @@
+query betweenDates($from: DateTime!, $to: DateTime!) {
+    deliveredBetween(
+        from: $from, to: $to,
+        page:{page:0,size:10,sort:{property:plannedDeliveryDate,direction:DESC}})
+    {
+        content {
+            id
+            status
+            category
+            plannedDeliveryDate
+            actualDeliveryDate
+        }
+        size
+        totalElements
+        totalPages
+    }
+}

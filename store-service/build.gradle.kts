@@ -59,10 +59,10 @@ dependencies {
 
 	// Test Libs
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework:spring-webflux")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:postgresql:1.17.3")
+	testImplementation("io.github.serpro69:kotlin-faker:1.11.0")
 }
 
 dependencyManagement {
