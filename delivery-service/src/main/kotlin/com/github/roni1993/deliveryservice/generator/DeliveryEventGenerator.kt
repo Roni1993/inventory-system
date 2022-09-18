@@ -25,12 +25,13 @@ class DeliveryEventGenerator {
         val now = LocalDateTime.now()
         val occurred = between(now.minusHours(3), now)
 
-        // no transports earlier than 2 days in advance & upto 21 days in advance
-        val startPlanned = now.plusDays(1)
-        val endPlanned = now.plusDays(21)
+        // transports planned that were in the past up until the future
+        val startPlanned = now.minusDays(7)
+        val endPlanned = now.plusDays(7)
         val planned = between(startPlanned, endPlanned)
 
-        // logistics are unpredictable
+        // logistics is unpredictable
+        val delivered = faker.random.nextBoolean()
         val actual = between(planned.minusDays(1), planned.plusDays(7))
 
         return DeliveryEventDto(
@@ -39,10 +40,10 @@ class DeliveryEventGenerator {
             toDate(occurred),
             "TR%05d".format(faker.random.nextInt(1, 10)),
             toDate(planned),
-            toDate(actual),
+            if (delivered) toDate(actual) else null,
             faker.random.randomValue(category),
             items,
-            faker.random.randomValue(status)
+            if(delivered) "delivered" else faker.random.randomValue(status)
         )
     }
 

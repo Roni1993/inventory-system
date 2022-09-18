@@ -33,7 +33,7 @@ class DeliveryEventPublisher(
     }
 
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 1000)
     @Throws(Exception::class)
     fun sendEvent() {
         if (enabled) {
