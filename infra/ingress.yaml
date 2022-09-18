@@ -50,8 +50,8 @@ spec:
         pathType: Prefix
       - backend:
           service:
-            name: transport-service
+            name: delivery-service
             port:
               number: 8080
-        path: /api/transport
+        path: /api/delivery
         pathType: Prefix

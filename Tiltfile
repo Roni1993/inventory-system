@@ -26,7 +26,7 @@ helm_remote(
 k8s_yaml([
     'infra/inventory-frontend.yaml',
     'infra/store-service.yaml',
-    'infra/transport-service.yaml',
+    'infra/delivery-service.yaml',
     'infra/ingress.yaml',
 ])
 
@@ -41,21 +41,21 @@ docker_build(
 )
 
 local_resource(
-  'transport-java-compile',
-  dir='./transport-service',
+  'delivery-java-compile',
+  dir='./delivery-service',
   cmd='./gradlew bootJar && ' +
-    'unzip -o build/libs/transport-service-0.0.1-SNAPSHOT.jar -d build/jar-staging && ' +
+    'unzip -o build/libs/delivery-service-0.0.1-SNAPSHOT.jar -d build/jar-staging && ' +
     'rsync --inplace --checksum -r build/jar-staging/ build/jar',
   deps=['src', 'build.gradle'],
 )
 
 docker_build(
-  'transport-service',
-  context='./transport-service',
+  'delivery-service',
+  context='./delivery-service',
   live_update=[
-    sync('./transport-service/build/jar/BOOT-INF/lib', '/app/lib'),
-    sync('./transport-service/build/jar/META-INF', '/app/META-INF'),
-    sync('./transport-service/build/jar/BOOT-INF/classes', '/app'),
+    sync('./delivery-service/build/jar/BOOT-INF/lib', '/app/lib'),
+    sync('./delivery-service/build/jar/META-INF', '/app/META-INF'),
+    sync('./delivery-service/build/jar/BOOT-INF/classes', '/app'),
   ],
 )
 
