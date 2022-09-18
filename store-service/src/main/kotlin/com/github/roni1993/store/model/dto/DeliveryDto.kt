@@ -13,12 +13,12 @@ data class DeliveryDto(
     constructor() : this(null, null, null, null, null, null)
 }
 
-enum class DeliveryCategory(s: String) {
+enum class DeliveryCategory(val key: String) {
     TRUCK("truck"),
     PARCEL("parcel")
 }
 
-enum class DeliveryStatus(s: String) {
+enum class DeliveryStatus(val key: String) {
     PLANNED("planned"),
     IN_PROGRESS("in-progress"),
     DELIVERED("delivered"),

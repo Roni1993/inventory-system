@@ -29,6 +29,8 @@ dependencies {
 	// web related libs
 	implementation("org.springframework.boot:spring-boot-starter-graphql")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("com.graphql-java:graphql-java-extended-scalars:18.1")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 	// event processing
@@ -52,7 +54,11 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("joda-time:joda-time:2.11.1")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	// Test Libs
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework:spring-webflux")
+	testImplementation("org.springframework.graphql:spring-graphql-test")
 }
 
 dependencyManagement {

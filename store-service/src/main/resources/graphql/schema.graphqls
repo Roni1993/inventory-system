@@ -1,10 +1,10 @@
-scalar Date
+scalar DateTime
 
 type Query {
     delivery(id: ID!): Delivery
     deliveries(page: Page): DeliveryCollection!
     deliveriesPlannedTomorrow(page: Page): DeliveryCollection!
-    deliveredBetween(from: Date!, to: Date!, page: Page): DeliveryCollection!
+    deliveredBetween(from: DateTime!, to: DateTime!, page: Page): DeliveryCollection!
 }
 
 input Sort {
@@ -38,8 +38,8 @@ type Delivery {
     id: ID!
     status: DeliveryStatus!
     category: DeliveryCategory!
-    plannedDeliveryDate: Date!
-    actualDeliveryDate: Date
+    plannedDeliveryDate: DateTime!
+    actualDeliveryDate: DateTime
     items: [Item]
 }
 
