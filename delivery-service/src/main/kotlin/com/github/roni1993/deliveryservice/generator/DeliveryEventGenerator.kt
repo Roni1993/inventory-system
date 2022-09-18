@@ -17,7 +17,7 @@ class DeliveryEventGenerator {
     val status = listOf("planned", "in-progress", "delivered", "unknown")
 
     fun generateEvent(): DeliveryEventDto {
-        val items = List(faker.random.nextInt(1, 10)) {
+        val items = List(faker.random.nextInt(1, 100)) {
             Item(faker.appliance.equipment(), faker.random.nextInt(1, 99))
         }
 
