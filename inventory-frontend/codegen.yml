@@ -1,0 +1,11 @@
+schema: "http://localhost/api/graphql"
+documents:
+  - "./**/*.graphql"
+generates:
+  components/queries.generated.tsx:
+    config:
+      withHooks: true
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-urql
