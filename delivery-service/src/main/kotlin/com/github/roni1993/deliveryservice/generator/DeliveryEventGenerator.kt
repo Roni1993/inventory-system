@@ -14,10 +14,10 @@ import java.util.concurrent.ThreadLocalRandom
 class DeliveryEventGenerator {
     private val faker = Faker()
     val category = listOf("truck", "parcel")
-    val status = listOf("planned", "in-progress", "delivered", "unknown")
+    val status = listOf("planned", "in-progress", "unknown")
 
     fun generateEvent(): DeliveryEventDto {
-        val items = List(faker.random.nextInt(1, 100)) {
+        val items = List(faker.random.nextInt(1, 10)) {
             Item(faker.appliance.equipment(), faker.random.nextInt(1, 99))
         }
 
@@ -38,7 +38,7 @@ class DeliveryEventGenerator {
             UUID.randomUUID(),
             Date(),
             toDate(occurred),
-            "TR%05d".format(faker.random.nextInt(1, 10)),
+            "TR%05d".format(faker.random.nextInt(1, 100)),
             toDate(planned),
             if (delivered) toDate(actual) else null,
             faker.random.randomValue(category),
