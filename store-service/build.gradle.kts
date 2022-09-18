@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "2.7.3"
 	id("io.spring.dependency-management") version "1.0.13.RELEASE"
 	kotlin("jvm") version "1.6.21"
+	kotlin("kapt") version "1.7.10"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
 }
@@ -16,22 +17,41 @@ repositories {
 	mavenCentral()
 }
 
+// add generated sources to classpath
+java.sourceSets["main"].java {
+	srcDir("build/generated")
+}
+
 extra["solaceSpringCloudVersion"] = "2.3.0"
 extra["springCloudVersion"] = "2021.0.4"
 
 dependencies {
+	// web related libs
 	implementation("org.springframework.boot:spring-boot-starter-graphql")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.solace.spring.boot:solace-jms-spring-boot-starter")
-
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+	// event processing
+	implementation("com.solace.spring.boot:solace-jms-spring-boot-starter")
+	implementation("org.mapstruct:mapstruct:1.5.2.Final")
+	kapt("org.mapstruct:mapstruct-processor:1.5.2.Final")
+
+	// DB related libs
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("com.vladmihalcea:hibernate-types-52:2.19.1")
 	implementation("org.flywaydb:flyway-core")
+	implementation("com.querydsl:querydsl-core")
+	implementation("com.querydsl:querydsl-jpa")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+//	kapt("jakarta.annotation:jakarta.annotation-api")
+//	kapt("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
+	runtimeOnly("org.postgresql:postgresql")
+
+	// Other libs
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
+	implementation("joda-time:joda-time:2.11.1")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
