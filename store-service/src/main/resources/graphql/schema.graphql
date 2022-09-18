@@ -1,37 +1,43 @@
 scalar Date
 
 type Query {
-    transport(id: ID!): Transport
-    transports(page: Page, search: Search ): [Transport]
-    deliveries(from: Date, to: Date, page: Page, search: Search ): [Transport]
+    delivery(id: ID!): Delivery
+    deliveries(page: Page): DeliveryCollection!
+    deliveriesPlannedTomorrow(page: Page): DeliveryCollection!
+    deliveredBetween(from: Date!, to: Date!, page: Page): DeliveryCollection!
 }
 
-# TODO: define predicate in Graphql Schema
-# TODO: set-up Graphql lib
-# TODO: define read model
-# TODO: define event store model
+input Sort {
+    field: String
+    order: OrderType
+}
 
-# optional
-# TODO: set-up solace connection
-# TODO: define flyway migrations
+enum OrderType { ASC, DESC }
 
 # Tests
 # TODO: build repository tests
 # TODO: build graphql tests
 
-input Search {
-    filter: String
-}
 
 input Page {
     page: Int,
-    size: Int
+    size: Int,
+    sort: [Sort]
 }
 
-type Transport {
+type DeliveryCollection  {
+    content: [Delivery]
+    page: Int
+    offset: Int
+    size: Int
+    totalElements: Int
+    totalPages: Int
+}
+
+type Delivery {
     id: ID!
-    status: TransportStatus!
-    category: TransportCategory!
+    status: DeliveryStatus!
+    category: DeliveryCategory!
     plannedDeliveryDate: Date!
     actualDeliveryDate: Date
     items: [Item]
@@ -42,12 +48,12 @@ type Item {
     quantity: Int!
 }
 
-enum TransportCategory {
+enum DeliveryCategory {
     TRUCK,
     PARCEL,
 }
 
-enum TransportStatus {
+enum DeliveryStatus {
     PLANNED,
     IN_PROGRESS,
     DELIVERED,
