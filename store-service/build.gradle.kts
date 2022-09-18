@@ -24,6 +24,7 @@ java.sourceSets["main"].java {
 
 extra["solaceSpringCloudVersion"] = "2.3.0"
 extra["springCloudVersion"] = "2021.0.4"
+extra["testcontainersVersion"] = "1.17.3"
 
 dependencies {
 	// web related libs
@@ -36,6 +37,7 @@ dependencies {
 	// event processing
 	implementation("com.solace.spring.boot:solace-jms-spring-boot-starter")
 	implementation("org.mapstruct:mapstruct:1.5.2.Final")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 	kapt("org.mapstruct:mapstruct-processor:1.5.2.Final")
 
 	// DB related libs
@@ -59,12 +61,15 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework:spring-webflux")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
+	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.testcontainers:postgresql:1.17.3")
 }
 
 dependencyManagement {
 	imports {
 		mavenBom("com.solace.spring.cloud:solace-spring-cloud-bom:${property("solaceSpringCloudVersion")}")
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+		mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
 	}
 }
 
