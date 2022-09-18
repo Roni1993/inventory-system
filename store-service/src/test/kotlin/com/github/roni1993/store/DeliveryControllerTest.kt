@@ -30,6 +30,11 @@ internal class DeliveryControllerTest {
     @Autowired
     private lateinit var repo: DeliveryViewRepository
 
+    @BeforeEach
+    fun delete() {
+        repo.deleteAll()
+    }
+
     @Test
     fun contextLoads() {
         assertNotNull(graphQlTester)
@@ -133,8 +138,8 @@ internal class DeliveryControllerTest {
     @Test
     fun `call deliveriesPlannedTomorrow with 1 single delivery coming in`() {
         // Given there are 3 entries in the DB where one is planned before the other
-        createAndInsertDeliveryView("T00001", true, 1)
-        val tomorrow = createAndInsertDeliveryView("T00002", false, 0)
+        createAndInsertDeliveryView("T00001", true, 0)
+        val tomorrow = createAndInsertDeliveryView("T00002", false, 1)
         createAndInsertDeliveryView("T00003", false, 2)
 
         // When a user requests tomorrows deliveries
@@ -190,7 +195,6 @@ internal class DeliveryControllerTest {
         val planned = LocalDateTime.now().plusDays(plannedInDays)
         val actual = planned.plusDays(1)
 
-
         val delivery = DeliveryView(
             id,
             toDate(planned),
@@ -202,11 +206,6 @@ internal class DeliveryControllerTest {
         println(delivery)
         repo.save(delivery)
         return delivery
-    }
-
-    @BeforeEach
-    fun delete() {
-        repo.deleteAll()
     }
 
     fun toDate(local: LocalDateTime?): Date {
