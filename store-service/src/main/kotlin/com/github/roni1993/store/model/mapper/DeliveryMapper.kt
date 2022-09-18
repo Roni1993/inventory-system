@@ -16,13 +16,16 @@ import java.util.*
 abstract class DeliveryMapper {
     @Mapping(source = "id", target = "deliveryId")
     abstract fun toEntity(event: DeliveryEventDto): DeliveryEvent
+
     abstract fun toView(entity: DeliveryEvent): DeliveryView
+
     @Mapping(source = "deliveryId", target = "id")
     abstract fun toDto(entity: DeliveryView): Delivery
 
     fun toCategory(category: String): DeliveryCategory {
         return DeliveryCategory.values().find { enum -> enum.key == category  }!!
     }
+
     fun toStatus(status: String): DeliveryStatus {
         return DeliveryStatus.values().find { enum -> enum.key == status  }!!
     }

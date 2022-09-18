@@ -32,11 +32,12 @@ class DeliveryController(val repo: DeliveryViewRepository, val mapper: DeliveryM
 
     @QueryMapping
     fun deliveriesPlannedTomorrow(@Argument page: PageInput?): Page<Delivery> {
-        val pageable = (page ?: PageInput()).toPageable()
         val now = DateTime()
         val today: LocalDate = now.toLocalDate()
         val startOfTomorrow = today.plusDays(1).toDateTimeAtStartOfDay(now.zone)
         val endOfTomorrow = today.plusDays(2).toDateTimeAtStartOfDay(now.zone)
+
+        val pageable = (page ?: PageInput()).toPageable()
         val query = QDeliveryView.deliveryView.plannedDeliveryDate
             .between(startOfTomorrow.toDate(), endOfTomorrow.toDate())
         return repo.findAll(query, pageable).map(mapper::toDto)
