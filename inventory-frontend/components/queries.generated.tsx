@@ -21,7 +21,7 @@ export type Delivery = {
   actualDeliveryDate?: Maybe<Scalars['DateTime']>;
   category: DeliveryCategory;
   id: Scalars['ID'];
-  items?: Maybe<Array<Maybe<Item>>>;
+  items: Array<Item>;
   plannedDeliveryDate: Scalars['DateTime'];
   status: DeliveryStatus;
 };
@@ -33,10 +33,10 @@ export enum DeliveryCategory {
 
 export type DeliveryCollection = {
   __typename?: 'DeliveryCollection';
-  content?: Maybe<Array<Maybe<Delivery>>>;
-  size?: Maybe<Scalars['Int']>;
-  totalElements?: Maybe<Scalars['Int']>;
-  totalPages?: Maybe<Scalars['Int']>;
+  content: Array<Delivery>;
+  size: Scalars['Int'];
+  totalElements: Scalars['Int'];
+  totalPages: Scalars['Int'];
 };
 
 export enum DeliveryProperties {
@@ -65,11 +65,6 @@ export type Item = {
   quantity: Scalars['Int'];
 };
 
-/**
- *  Tests
- *  TODO: build repository tests
- *  TODO: build graphql tests
- */
 export type PageInput = {
   page?: InputMaybe<Scalars['Int']>;
   size?: InputMaybe<Scalars['Int']>;
@@ -114,47 +109,45 @@ export type Sort = {
 export type BetweenDatesQueryVariables = Exact<{
   from: Scalars['DateTime'];
   to: Scalars['DateTime'];
+  page?: InputMaybe<PageInput>;
 }>;
 
 
-export type BetweenDatesQuery = { __typename?: 'Query', deliveredBetween: { __typename?: 'DeliveryCollection', size?: number | null, totalElements?: number | null, totalPages?: number | null, content?: Array<{ __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null } | null> | null } };
+export type BetweenDatesQuery = { __typename?: 'Query', deliveredBetween: { __typename?: 'DeliveryCollection', size: number, totalElements: number, totalPages: number, content: Array<{ __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null, items: Array<{ __typename?: 'Item', name: string, quantity: number }> }> } };
 
 export type DeliveriesQueryVariables = Exact<{
-  size?: InputMaybe<Scalars['Int']>;
-  page?: InputMaybe<Scalars['Int']>;
-  property?: InputMaybe<DeliveryProperties>;
-  direction?: InputMaybe<Direction>;
+  page?: InputMaybe<PageInput>;
 }>;
 
 
-export type DeliveriesQuery = { __typename?: 'Query', deliveries: { __typename?: 'DeliveryCollection', size?: number | null, totalElements?: number | null, totalPages?: number | null, content?: Array<{ __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null, items?: Array<{ __typename?: 'Item', name: string, quantity: number } | null> | null } | null> | null } };
+export type DeliveriesQuery = { __typename?: 'Query', deliveries: { __typename?: 'DeliveryCollection', size: number, totalElements: number, totalPages: number, content: Array<{ __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null, items: Array<{ __typename?: 'Item', name: string, quantity: number }> }> } };
 
 export type TomorrowQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TomorrowQuery = { __typename?: 'Query', deliveriesPlannedTomorrow: { __typename?: 'DeliveryCollection', size?: number | null, totalElements?: number | null, totalPages?: number | null, content?: Array<{ __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null, items?: Array<{ __typename?: 'Item', name: string, quantity: number } | null> | null } | null> | null } };
+export type TomorrowQuery = { __typename?: 'Query', deliveriesPlannedTomorrow: { __typename?: 'DeliveryCollection', size: number, totalElements: number, totalPages: number, content: Array<{ __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null, items: Array<{ __typename?: 'Item', name: string, quantity: number }> }> } };
 
 export type DeliveryQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type DeliveryQuery = { __typename?: 'Query', delivery?: { __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null, items?: Array<{ __typename?: 'Item', name: string, quantity: number } | null> | null } | null };
+export type DeliveryQuery = { __typename?: 'Query', delivery?: { __typename?: 'Delivery', id: string, status: DeliveryStatus, category: DeliveryCategory, plannedDeliveryDate: any, actualDeliveryDate?: any | null, items: Array<{ __typename?: 'Item', name: string, quantity: number }> } | null };
 
 
 export const BetweenDatesDocument = gql`
-    query betweenDates($from: DateTime!, $to: DateTime!) {
-  deliveredBetween(
-    from: $from
-    to: $to
-    page: {page: 0, size: 10, sort: {property: plannedDeliveryDate, direction: DESC}}
-  ) {
+    query betweenDates($from: DateTime!, $to: DateTime!, $page: PageInput) {
+  deliveredBetween(from: $from, to: $to, page: $page) {
     content {
       id
       status
       category
       plannedDeliveryDate
       actualDeliveryDate
+      items {
+        name
+        quantity
+      }
     }
     size
     totalElements
@@ -167,10 +160,8 @@ export function useBetweenDatesQuery(options: Omit<Urql.UseQueryArgs<BetweenDate
   return Urql.useQuery<BetweenDatesQuery, BetweenDatesQueryVariables>({ query: BetweenDatesDocument, ...options });
 };
 export const DeliveriesDocument = gql`
-    query deliveries($size: Int, $page: Int, $property: DeliveryProperties, $direction: Direction) {
-  deliveries(
-    page: {page: $page, size: $size, sort: [{property: $property, direction: $direction}]}
-  ) {
+    query deliveries($page: PageInput) {
+  deliveries(page: $page) {
     content {
       id
       status

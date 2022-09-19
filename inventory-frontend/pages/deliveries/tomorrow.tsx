@@ -1,19 +1,18 @@
 import type {NextPage} from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import {useTomorrowQuery} from "../../components/queries.generated";
+import Table from "../../components/table";
 
 const Tomorrow: NextPage = () => {
+  const [result] = useTomorrowQuery()
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  const deliveries = data?.deliveriesPlannedTomorrow
   return (
-    <div className="hero">
-      <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-5xl font-bold">Hello there</h1>
-          <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-            exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-          <button className="btn btn-primary">Get Started</button>
-        </div>
-      </div>
+    <div>
+      <Table deliveries={deliveries}></Table>
     </div>
   )
 }

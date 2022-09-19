@@ -1,19 +1,23 @@
 import type {NextPage} from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import {DeliveryProperties, Direction, useDeliveriesQuery} from "../../components/queries.generated";
+import Table from '../../components/table';
+import Pagination from "../../components/pagination";
+import {useState} from "react";
 
 const All: NextPage = () => {
+  const [page, setPage] = useState(0);
+  const [result] = useDeliveriesQuery({variables: {page:
+        {page, size: 20, sort: [{direction: Direction.Asc, property:DeliveryProperties.DeliveryId}]} }})
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  const deliveries = data?.deliveries
   return (
-    <div className="hero">
-      <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-5xl font-bold">Hello there</h1>
-          <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-            exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-          <button className="btn btn-primary">Get Started</button>
-        </div>
-      </div>
+    <div>
+      <Pagination page={page} setPage={setPage} totalPages={deliveries?.totalPages || 1}></Pagination>
+      <Table deliveries={deliveries}></Table>
     </div>
   )
 }

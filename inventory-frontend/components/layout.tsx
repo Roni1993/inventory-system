@@ -33,7 +33,7 @@ export default function Layout({children}) {
             </div>
           </div>
         </div>
-        <div className="flex-1 max-w-6xl mx-auto p-8">
+        <div className="flex-1 max-w-7xl mx-auto p-8">
           <main>{children}</main>
         </div>
         <footer className="footer footer-center p-4 bg-neutral text-neutral-content">

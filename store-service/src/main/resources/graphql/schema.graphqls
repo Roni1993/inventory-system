@@ -29,10 +29,10 @@ input PageInput {
 }
 
 type DeliveryCollection  {
-    content: [Delivery]
-    size: Int
-    totalElements: Int
-    totalPages: Int
+    content: [Delivery!]!
+    size: Int!
+    totalElements: Int!
+    totalPages: Int!
 }
 
 type Delivery {
@@ -41,7 +41,7 @@ type Delivery {
     category: DeliveryCategory!
     plannedDeliveryDate: DateTime!
     actualDeliveryDate: DateTime
-    items: [Item]
+    items: [Item!]!
 }
 
 type Item {
