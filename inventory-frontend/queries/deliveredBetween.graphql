@@ -1,12 +1,6 @@
-query deliveries($size: Int, $page: Int, $property: DeliveryProperties, $direction: Direction) {
-    deliveries(page: {
-        page: $page,
-        size: $size,
-        sort: [{
-            property: $property
-            direction: $direction
-        }]
-    }) {
+query betweenDates($from: DateTime!, $to: DateTime!, $page: PageInput) {
+    deliveredBetween( from: $from, to: $to, page: $page )
+    {
         content {
             id
             status
