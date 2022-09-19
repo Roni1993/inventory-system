@@ -26,10 +26,10 @@ This repository contains an example project on how to build an event-driven appl
   - contains local kubernetes cluster
   - traefik preinstalled
   - allows docker builds
-- Tilt CLI tool
+  - Tilt CLI tool
 
-      # Tilt needs to be installed
-      brew install tilt-dev/tap/tilt
+    # Tilt needs to be installed
+    brew install tilt-dev/tap/tilt
 
 ### How to start
 
