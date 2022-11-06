@@ -7,5 +7,3 @@ RUN git clone https://github.com/Roni1993/.dotfiles
 RUN .dotfiles/install
 
 RUN chsh -s /usr/bin/zsh
-RUN zsh
-RUN zi update
