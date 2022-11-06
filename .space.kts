@@ -36,10 +36,10 @@ job("Build and push dev container") {
     host("Build artifacts and a Docker image") {
         dockerBuildPush {
             // Docker context, by default, project root
-            context = "docker"
+            // context = "docker"
             // path to Dockerfile relative to project root
             // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
-            file = "Dockerfile"
+            // file = "Dockerfile"
             labels["vendor"] = "roni1993"
             args["HTTP_PROXY"] = "http://10.20.30.1:123"
 
