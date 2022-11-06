@@ -5,6 +5,13 @@ job("Warmup data for IDEA") {
         // use image specified in the devfile
         // devfile = ".space/devfile.yaml"
     }
+    
+    warmup(ide = Ide.Idea) {
+        // path to the warm-up script
+        scriptLocation = "./dev-env-warmup.sh"
+        // use image specified in the devfile
+        // devfile = ".space/devfile.yaml"
+    }
 
     // optional
     git {
