@@ -35,14 +35,6 @@ job("Warmup data for IDEA") {
 job("Build and push dev container") {
     host("Build artifacts and a Docker image") {
         dockerBuildPush {
-            // Docker context, by default, project root
-            // context = "docker"
-            // path to Dockerfile relative to project root
-            // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
-            // file = "Dockerfile"
-            labels["vendor"] = "roni1993"
-            args["HTTP_PROXY"] = "http://10.20.30.1:123"
-
             val spaceRepo = "roni1993.registry.jetbrains.space/p/trustyserva/containers/dev-container"
             // image tags for 'docker push'
             tags {
