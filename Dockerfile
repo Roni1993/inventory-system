@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-RUN bash << EOF
+RUN <<EOF
 	# execute install script for terminal environment
 	cd
 	git clone https://github.com/Roni1993/.dotfiles
