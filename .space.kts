@@ -1,9 +1,6 @@
 job("Warmup data for Fleet") {
     warmup(ide = Ide.Fleet) {
-        // path to the warm-up script
         scriptLocation = "./dev-env-warmup.sh"
-        // use image specified in the devfile
-        devfile = ".space/fleet.devfile.yaml"
     }
 
     // optional
@@ -17,10 +14,7 @@ job("Warmup data for Fleet") {
 
 job("Warmup data for IDEA") {
     warmup(ide = Ide.Idea) {
-        // path to the warm-up script
         scriptLocation = "./dev-env-warmup.sh"
-        // use image specified in the devfile
-        devfile = ".space/idea.devfile.yaml"
     }
 
     // optional
