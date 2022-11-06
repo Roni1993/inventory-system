@@ -31,3 +31,24 @@ job("Warmup data for IDEA") {
         refSpec = "refs/*:refs/*"
     }
 }
+
+job("Build and push dev container") {
+    host("Build artifacts and a Docker image") {
+        dockerBuildPush {
+            // Docker context, by default, project root
+            context = "docker"
+            // path to Dockerfile relative to project root
+            // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
+            file = "Dockerfile"
+            labels["vendor"] = "roni1993"
+            args["HTTP_PROXY"] = "http://10.20.30.1:123"
+
+            val spaceRepo = "roni1993.registry.jetbrains.space/p/TrustyServa/roni1993/dev-container"
+            // image tags for 'docker push'
+            tags {
+                +"$spaceRepo:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"$spaceRepo:latest"
+            }
+        }
+    }
+}
