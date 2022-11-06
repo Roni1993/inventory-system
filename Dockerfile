@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-USER ROOT
+USER root
 
 RUN apt update
 RUN apt install git python3 -y
