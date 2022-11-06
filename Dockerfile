@@ -1,15 +1,10 @@
-# syntax=docker/dockerfile:1.4
 FROM ubuntu:22.04
 
-RUN <<EOF
+RUN cd
+RUN git clone https://github.com/Roni1993/.dotfiles
+RUN cd .dotfiles
+RUN ./install
 
-cd
-git clone https://github.com/Roni1993/.dotfiles
-cd .dotfiles
-./install
-
-chsh -s /usr/bin/zsh
-zsh
-zi update
-
-EOF
+RUN chsh -s /usr/bin/zsh
+RUN zsh
+RUN zi update
