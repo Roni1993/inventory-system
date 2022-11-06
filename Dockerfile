@@ -1,6 +1,7 @@
 FROM ubuntu:22.04
 
 RUN cd
+RUN apt install git -y
 RUN git clone https://github.com/Roni1993/.dotfiles
 RUN cd .dotfiles
 RUN ./install
