@@ -3,7 +3,7 @@ job("Warmup data for Fleet") {
         // path to the warm-up script
         scriptLocation = "./dev-env-warmup.sh"
         // use image specified in the devfile
-        // devfile = ".space/devfile.yaml"
+        devfile = ".space/fleet.devfile.yaml"
     }
 
     // optional
@@ -20,7 +20,7 @@ job("Warmup data for IDEA") {
         // path to the warm-up script
         scriptLocation = "./dev-env-warmup.sh"
         // use image specified in the devfile
-        // devfile = ".space/devfile.yaml"
+        devfile = ".space/idea.devfile.yaml"
     }
 
     // optional
