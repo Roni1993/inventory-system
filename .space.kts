@@ -43,7 +43,7 @@ job("Build and push dev container") {
             labels["vendor"] = "roni1993"
             args["HTTP_PROXY"] = "http://10.20.30.1:123"
 
-            val spaceRepo = "roni1993.registry.jetbrains.space/p/trustyserva/roni1993/dev-container"
+            val spaceRepo = "roni1993.registry.jetbrains.space/p/trustyserva/containers/dev-container"
             // image tags for 'docker push'
             tags {
                 +"$spaceRepo:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER"
