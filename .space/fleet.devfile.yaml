@@ -1,0 +1,10 @@
+schemaVersion: 2.2.0
+attributes:
+  space:
+    instanceType: large
+    editor:
+      type: Fleet
+components:
+- name: dev-container
+  container:
+    image: roni1993.registry.jetbrains.space/p/trustyserva/containers/dev-container
